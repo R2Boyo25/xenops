@@ -5,10 +5,10 @@
 
 import _pytest.capture
 
-import xenops.main
+import xenops.__main__
 
 
 def test_main(capsys: _pytest.capture.CaptureFixture[str]) -> None:
     """Test that main() prints 'Hello world!'."""
-    xenops.main.main()
+    xenops.__main__.main()
     assert capsys.readouterr().out == 'Hello world!\n'

@@ -4,7 +4,7 @@
   outputs = { self, nixpkgs, flake-utils }@inputs:
     let
       deps = pyPackages: with pyPackages; [
-        # TODO: list python dependencies
+        pygame
       ];
       tools = pkgs: pyPackages: (with pyPackages; [
         pytest pytestCheckHook
@@ -49,7 +49,7 @@
             buildInputs = [(defaultPython3Packages.python.withPackages deps)];
             nativeBuildInputs = tools pkgs defaultPython3Packages;
             shellHook = ''
-              export PYTHONASYNCIODEBUG=1 PYTHONWARNINGS=error
+              export PYTHONASYNCIODEBUG=1
             '';
           };
           packages.xenops = xenops;

@@ -6,6 +6,6 @@
 Provided so that one can execute it with `python <source-directory>`.
 """
 
-import xenops.main
+import xenops.__main__
 
-xenops.main.main()
+xenops.__main__.main()

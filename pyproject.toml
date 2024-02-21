@@ -2,7 +2,7 @@
 name = "xenops"
 version = "0.0.1"
 authors = [
-  { name="Ohin "Kazani" Taylor", email="kazani@kazani.dev" },
+  { name="Ohin \"Kazani\" Taylor", email="kazani@kazani.dev" },
 ]
 description = "A GUI editor with Nix integration"
 urls.homepage = "https://github.com/r2boyo25/xenops"
