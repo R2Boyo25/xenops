@@ -3,32 +3,17 @@
 
 """Main module of xenops."""
 
-import pygame
+
+from xenops.event import Event
+from xenops.window import Window
+
 
 def main() -> None:
-    pygame.init()
+    window = Window("Xenops")
 
-    running = True
-    clock = pygame.time.Clock()
-    screen = pygame.display.set_mode((500, 500), pygame.RESIZABLE | pygame.SRCALPHA)
-    pygame.display.set_caption("Xenops")
+    window.root.on(Event, lambda event: print(event))
 
-    pygame.draw.rect(screen, (0, 0, 0, 0), screen.get_rect())
-
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-            if event.type == pygame.MOUSEMOTION:
-                print(event.dict)
-
-        pygame.draw.rect(screen, (255, 0, 255), (20, 20, 20, 20))
-        pygame.display.flip()
-
-        clock.tick(60)
-
-    pygame.quit()
+    window.run()
 
 
 if __name__ == '__main__':
