@@ -5,6 +5,7 @@
     let
       deps = pyPackages: with pyPackages; [
         pygame
+        darkdetect
       ];
       tools = pkgs: pyPackages: (with pyPackages; [
         pytest pytestCheckHook

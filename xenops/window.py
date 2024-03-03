@@ -1,7 +1,7 @@
 from typing import cast
 import random
 
-from xenops.event import ClickEvent, PointerMotionEvent
+from xenops.event import ClickEvent, PointerMotionEvent, ScrollEvent
 from .widget import Widget, Root
 import pygame
 
@@ -43,9 +43,15 @@ class Window:
         def draw_widget(widget: Widget):
             gp = widget.global_position
 
+            color = (
+                id(widget)       & 0xFF,
+                id(widget) >> 8  & 0xFF,
+                id(widget) >> 16 & 0xFF
+            )
+
             pygame.draw.rect(
                 self.screen,
-                (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),
+                color,
                 rect=(gp.x, gp.y, gp.w, gp.h),
                 width=1            
             )
@@ -60,6 +66,9 @@ class Window:
             self.running = False
 
         elif event.type == pygame.MOUSEBUTTONUP:
+            if event.dict["button"] in [4, 5]:
+                return
+
             self.root.dispatch_event(
                 ClickEvent(
                     pos=event.dict["pos"],
@@ -72,6 +81,19 @@ class Window:
                 PointerMotionEvent(
                     pos=event.dict["pos"],
                     rel_pos=event.dict["rel"]
+                )
+            )
+        
+        elif event.type == pygame.MOUSEWHEEL:
+            direction: int = -1 if event.dict["flipped"] else 1
+
+            self.root.dispatch_event(
+                ScrollEvent(
+                    pos=pygame.mouse.get_pos(),
+                    x=event.dict["x"] * direction,
+                    y=event.dict["y"] * direction,
+                    dx=event.dict["precise_x"] * direction,
+                    dy=event.dict["precise_y"] * direction
                 )
             )
 

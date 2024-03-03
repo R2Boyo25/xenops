@@ -69,8 +69,7 @@ class Root(Widget):
     def dispatch_event(self, event: Event) -> None:
         if isinstance(event, PointerEvent):
             def handle_widget(widget: Widget) -> None:
-                print(widget, widget.global_position, event.pos)
-                if widget.global_position.contains_point(event.pos):
+                if widget.global_position.contains_point(cast(PointerEvent, event).pos):
                     widget._dispatch_event(event)
                     
                     for child in widget.children:
